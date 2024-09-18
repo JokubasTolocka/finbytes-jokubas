@@ -1,6 +1,6 @@
-import { Typography } from "@mui/material";
 import Box from "@mui/material/Box/Box";
 import red from "@mui/material/colors/red";
+import Typography from "@mui/material/Typography/Typography";
 import { createContext, useState, PropsWithChildren } from "react";
 
 const ERROR_TIMEOUT = 5000;

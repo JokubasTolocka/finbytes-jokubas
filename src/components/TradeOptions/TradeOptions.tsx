@@ -1,8 +1,8 @@
-import { TextField } from "@mui/material";
 import Box from "@mui/material/Box/Box";
 import React from "react";
 import { useTrade } from "../../contexts/Trade/useTrade";
 import TradeTypes from "./TradeTypes";
+import TextField from "@mui/material/TextField/TextField";
 
 const TradeOptions = () => {
   const { amount, setAmount } = useTrade();
