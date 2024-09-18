@@ -9,7 +9,8 @@ import Box from "@mui/material/Box/Box";
 
 const Confirmation = () => {
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
-  const { security, amount, order, clearTrade } = useTrade();
+  const [finalPrice, setFinalPrice] = useState<number>();
+  const { security, amount, order, clearTrade, getTotalPrice } = useTrade();
 
   const handleClose = () => {
     setIsConfirmationOpen(false);
@@ -17,6 +18,7 @@ const Confirmation = () => {
   };
 
   const confirmTrade = () => {
+    setFinalPrice(getTotalPrice());
     // THIS IS WHERE THE REQUEST LOGIC WOULD SIT
     // await requestTradeConfirmation(url, {security, amount, order}).then(
     setIsConfirmationOpen(true);
@@ -50,7 +52,7 @@ const Confirmation = () => {
               display: "flex",
             }}
           >
-            <ModalContent handleClose={handleClose} />
+            <ModalContent handleClose={handleClose} finalPrice={finalPrice} />
           </Container>
         </Fade>
       </Modal>

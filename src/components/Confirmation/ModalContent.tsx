@@ -6,10 +6,11 @@ import Divider from "@mui/material/Divider/Divider";
 import Button from "@mui/material/Button/Button";
 
 interface Props {
+  finalPrice?: number;
   handleClose: () => void;
 }
 
-const ModalContent = ({ handleClose }: Props) => {
+const ModalContent = ({ handleClose, finalPrice }: Props) => {
   const { security, amount, order } = useTrade();
 
   return (
@@ -41,7 +42,7 @@ const ModalContent = ({ handleClose }: Props) => {
         </Typography>
         {security && (
           <Typography variant="h2" align="center" fontWeight={500}>
-            ${amount * security?.price}
+            ${finalPrice}
           </Typography>
         )}
       </Box>

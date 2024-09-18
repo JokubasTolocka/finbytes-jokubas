@@ -1,17 +1,14 @@
 import Box from "@mui/material/Box/Box";
 import { useTrade } from "../../contexts/Trade/useTrade";
 import Typography from "@mui/material/Typography";
-import { Security } from "../../contexts/Trade/types";
 import grey from "@mui/material/colors/grey";
 import usePriceUpdater from "./usePriceUpdater";
 import red from "@mui/material/colors/red";
 
 const TradeInformation = () => {
-  const { security, amount } = useTrade();
+  const { security, amount, getTotalPrice } = useTrade();
 
   const { requestError } = usePriceUpdater();
-
-  const totalPrice = amount * (security as Security).price;
 
   return (
     <Box>
@@ -40,7 +37,8 @@ const TradeInformation = () => {
           Estimated trading amount:
         </Typography>
         <Typography variant="body2">
-          Buy {amount}x${security?.price} {security?.symbol} ≈ ${totalPrice}
+          Buy {amount}x${security?.price} {security?.symbol} ≈ $
+          {getTotalPrice()}
         </Typography>
       </Box>
     </Box>

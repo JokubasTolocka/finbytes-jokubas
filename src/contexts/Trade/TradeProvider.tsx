@@ -16,6 +16,7 @@ export interface TradeState {
   order: OrderEnum;
   setOrder: Dispatch<SetStateAction<OrderEnum>>;
   clearTrade: () => void;
+  getTotalPrice: () => number | undefined;
 }
 
 export const TradeContext = createContext<TradeState | null>(null);
@@ -33,6 +34,12 @@ const TradeProvider = ({ children }: PropsWithChildren) => {
     setOrder(OrderEnum.UNDEFINED);
   };
 
+  const getTotalPrice = () => {
+    if (!security) return;
+
+    return amount * security.price;
+  };
+
   return (
     <TradeContext.Provider
       value={{
@@ -44,6 +51,7 @@ const TradeProvider = ({ children }: PropsWithChildren) => {
         order,
         setOrder,
         clearTrade,
+        getTotalPrice,
       }}
     >
       {children}
