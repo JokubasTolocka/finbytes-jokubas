@@ -4,7 +4,7 @@ import Security from "./components/Security/Security";
 import { useTrade } from "./contexts/Trade/useTrade";
 import TradeInformation from "./components/TradeInformation";
 import Box from "@mui/material/Box/Box";
-import TradeOptions from "./components/TradeOptions";
+import TradeOptions from "./components/TradeOptions/TradeOptions";
 
 const App = () => {
   const { security, amount } = useTrade();

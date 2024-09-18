@@ -1,6 +1,8 @@
 import { TextField } from "@mui/material";
+import Box from "@mui/material/Box/Box";
 import React from "react";
-import { useTrade } from "../contexts/Trade/useTrade";
+import { useTrade } from "../../contexts/Trade/useTrade";
+import TradeTypes from "./TradeTypes";
 
 const TradeOptions = () => {
   const { amount, setAmount } = useTrade();
@@ -15,15 +17,18 @@ const TradeOptions = () => {
   };
 
   return (
-    <TextField
-      id="amount"
-      label="Amount"
-      variant="outlined"
-      fullWidth
-      value={String(amount)}
-      onChange={handleInputChange}
-      type="number"
-    />
+    <Box sx={{ display: "flex", gap: 2 }}>
+      <TextField
+        id="amount"
+        label="Amount"
+        variant="outlined"
+        fullWidth
+        value={String(amount)}
+        onChange={handleInputChange}
+        type="number"
+      />
+      <TradeTypes />
+    </Box>
   );
 };
 
