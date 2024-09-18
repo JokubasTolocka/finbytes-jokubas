@@ -23,17 +23,6 @@ const colorTheme = createTheme({
 
 const theme = createTheme(colorTheme, {
   components: {
-    MuiOutlinedInput: {
-      styleOverrides: {
-        root: {
-          "&.Mui-focused": {
-            "& fieldset": {
-              borderColor: "white", // Change the color of the focused border
-            },
-          },
-        },
-      },
-    },
     MuiInputLabel: {
       styleOverrides: {
         root: {
