@@ -1,12 +1,12 @@
 import TextField from "@mui/material/TextField/TextField";
 import React, { useState } from "react";
 import useRequestHandler from "./useRequestHandler";
-import { useSecurity } from "../../contexts/Security/useSecurity";
+import { useTrade } from "../../contexts/Trade/useTrade";
 
 const Security = () => {
   const [inputValue, setInputValue] = useState("");
   const [typingTimeout, setTypingTimeout] = useState<number | null>(null);
-  const { clearSecurity } = useSecurity();
+  const { clearSecurity } = useTrade();
 
   const { makeRequest, clearError, formError } = useRequestHandler();
 

@@ -1,10 +1,10 @@
 import Box from "@mui/material/Box/Box";
-import { useSecurity } from "../contexts/Security/useSecurity";
+import { useTrade } from "../contexts/Trade/useTrade";
 import Typography from "@mui/material/Typography";
-import { Security } from "../contexts/Security/SecurityProvider";
+import { Security } from "../contexts/Trade/TradeProvider";
 
 const TradeInformation = () => {
-  const { security } = useSecurity();
+  const { security } = useTrade();
 
   const amount = 20;
 

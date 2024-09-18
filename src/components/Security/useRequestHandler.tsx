@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { getSecurityURL } from "./utils";
-import { useSecurity } from "../../contexts/Security/useSecurity";
+import { useTrade } from "../../contexts/Trade/useTrade";
 
 const useRequestHandler = () => {
   const [formError, setFormError] = useState<string>();
 
-  const { setSecurity } = useSecurity();
+  const { setSecurity } = useTrade();
 
   const clearError = () => setFormError(undefined);
 

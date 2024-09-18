@@ -11,21 +11,21 @@ export type Security = {
   price: number;
 };
 
-export interface SecurityState {
+export interface TradeState {
   security?: Security;
   setSecurity: Dispatch<SetStateAction<Security | undefined>>;
   clearSecurity: () => void;
 }
 
-export const SecurityContext = createContext<SecurityState | null>(null);
+export const TradeContext = createContext<TradeState | null>(null);
 
-export const SecurityProvider = ({ children }: PropsWithChildren) => {
+const TradeProvider = ({ children }: PropsWithChildren) => {
   const [security, setSecurity] = useState<Security>();
 
   const clearSecurity = () => setSecurity(undefined);
 
   return (
-    <SecurityContext.Provider
+    <TradeContext.Provider
       value={{
         security,
         setSecurity,
@@ -33,6 +33,8 @@ export const SecurityProvider = ({ children }: PropsWithChildren) => {
       }}
     >
       {children}
-    </SecurityContext.Provider>
+    </TradeContext.Provider>
   );
 };
+
+export default TradeProvider;
