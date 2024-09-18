@@ -15,6 +15,7 @@ export interface TradeState {
   setAmount: Dispatch<SetStateAction<number>>;
   type: TRADE_TYPES;
   setType: Dispatch<SetStateAction<TRADE_TYPES>>;
+  clearTrade: () => void;
 }
 
 export const TradeContext = createContext<TradeState | null>(null);
@@ -26,6 +27,12 @@ const TradeProvider = ({ children }: PropsWithChildren) => {
 
   const clearSecurity = () => setSecurity(undefined);
 
+  const clearTrade = () => {
+    clearSecurity();
+    setAmount(1);
+    setType(TRADE_TYPES.UNDEFINED);
+  };
+
   return (
     <TradeContext.Provider
       value={{
@@ -36,6 +43,7 @@ const TradeProvider = ({ children }: PropsWithChildren) => {
         setAmount,
         type,
         setType,
+        clearTrade,
       }}
     >
       {children}

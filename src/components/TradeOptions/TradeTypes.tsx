@@ -18,7 +18,6 @@ const TradeTypes = () => {
           enumType && (
             <Button
               variant={type === enumType ? "contained" : "text"}
-              color="primary"
               onClick={() => handleClick(enumType)}
               sx={{ px: 2 }}
               key={enumType}

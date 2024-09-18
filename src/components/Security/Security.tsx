@@ -1,14 +1,18 @@
 import TextField from "@mui/material/TextField/TextField";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useRequestHandler from "./useRequestHandler";
 import { useTrade } from "../../contexts/Trade/useTrade";
 
 const Security = () => {
   const [inputValue, setInputValue] = useState("");
   const typingTimeout = useRef<number>();
-  const { clearSecurity } = useTrade();
+  const { clearSecurity, security } = useTrade();
 
   const { makeRequest, clearError, formError } = useRequestHandler();
+
+  useEffect(() => {
+    if (!security) setInputValue("");
+  }, [security]);
 
   const handleInputChange = ({
     target: { value: symbol },

@@ -5,6 +5,7 @@ import { useTrade } from "./contexts/Trade/useTrade";
 import TradeInformation from "./components/TradeInformation";
 import Box from "@mui/material/Box/Box";
 import TradeOptions from "./components/TradeOptions/TradeOptions";
+import Confirmation from "./components/Confirmation/Confirmation";
 
 const App = () => {
   const { security, amount } = useTrade();
@@ -16,6 +17,7 @@ const App = () => {
         <Security />
         <TradeOptions />
         {security && !!amount && <TradeInformation />}
+        <Confirmation />
       </Box>
     </Container>
   );
