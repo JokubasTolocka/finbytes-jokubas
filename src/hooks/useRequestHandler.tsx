@@ -26,9 +26,13 @@ const useRequestHandler = () => {
           const responseSymbol = parsedResponse["Global Quote"]["01. symbol"];
           const price = parsedResponse["Global Quote"]["05. price"];
 
-          setSecurity({ symbol: responseSymbol, price });
+          if (responseSymbol && price) {
+            setSecurity({ symbol: responseSymbol, price });
+            clearError();
+            return;
+          }
 
-          clearError();
+          setError("Failed to parse data");
         }
       })
       .catch((err) => setError(err.message));
