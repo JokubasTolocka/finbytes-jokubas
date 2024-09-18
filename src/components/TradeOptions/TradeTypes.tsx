@@ -1,37 +1,29 @@
-import { useState } from "react";
 import Button from "@mui/material/Button/Button";
 import Box from "@mui/material/Box/Box";
-
-enum TRADE_TYPES {
-  MARKET = "Market",
-  LIMIT = "Limit",
-  STOP = "Stop",
-  UNDEFINED = "",
-}
+import { useTrade } from "../../contexts/Trade/useTrade";
+import { TRADE_TYPES } from "../../contexts/Trade/types";
 
 const TradeTypes = () => {
-  const [selectedOption, setSelectedOption] = useState<TRADE_TYPES>(
-    TRADE_TYPES.UNDEFINED
-  );
+  const { type, setType } = useTrade();
 
   const handleClick = (option: TRADE_TYPES) => {
-    if (option === selectedOption) setSelectedOption(TRADE_TYPES.UNDEFINED);
-    else setSelectedOption(option);
+    if (option === type) setType(TRADE_TYPES.UNDEFINED);
+    else setType(option);
   };
 
   return (
     <Box sx={{ display: "flex", gap: 2, my: 1 }}>
       {Object.values(TRADE_TYPES).map(
-        (type) =>
-          type && (
+        (enumType) =>
+          enumType && (
             <Button
-              variant={selectedOption === type ? "contained" : "text"}
+              variant={type === enumType ? "contained" : "text"}
               color="primary"
-              onClick={() => handleClick(type)}
+              onClick={() => handleClick(enumType)}
               sx={{ px: 2 }}
-              key={type}
+              key={enumType}
             >
-              {type}
+              {enumType}
             </Button>
           )
       )}

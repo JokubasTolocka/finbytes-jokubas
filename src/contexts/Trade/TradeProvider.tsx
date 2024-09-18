@@ -5,11 +5,7 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
-
-export type Security = {
-  symbol: string;
-  price: number;
-};
+import { Security, TRADE_TYPES } from "./types";
 
 export interface TradeState {
   security?: Security;
@@ -17,6 +13,8 @@ export interface TradeState {
   clearSecurity: () => void;
   amount: number;
   setAmount: Dispatch<SetStateAction<number>>;
+  type: TRADE_TYPES;
+  setType: Dispatch<SetStateAction<TRADE_TYPES>>;
 }
 
 export const TradeContext = createContext<TradeState | null>(null);
@@ -24,6 +22,7 @@ export const TradeContext = createContext<TradeState | null>(null);
 const TradeProvider = ({ children }: PropsWithChildren) => {
   const [security, setSecurity] = useState<Security>();
   const [amount, setAmount] = useState(1);
+  const [type, setType] = useState<TRADE_TYPES>(TRADE_TYPES.UNDEFINED);
 
   const clearSecurity = () => setSecurity(undefined);
 
@@ -35,6 +34,8 @@ const TradeProvider = ({ children }: PropsWithChildren) => {
         clearSecurity,
         amount,
         setAmount,
+        type,
+        setType,
       }}
     >
       {children}
