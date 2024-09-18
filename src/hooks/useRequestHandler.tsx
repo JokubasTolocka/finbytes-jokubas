@@ -1,18 +1,23 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { getSecurityURL } from "../components/Security/utils";
 import { useTrade } from "../contexts/Trade/useTrade";
 import { useGlobalError } from "../contexts/GlobalError/useGlobalError";
 
 const useRequestHandler = () => {
   const [requestError, setRequestError] = useState<string>();
-  const { setError } = useGlobalError();
+  const { setErrorMessage } = useGlobalError();
+  const isRequestGoing = useRef(false);
 
   const { setSecurity, clearSecurity } = useTrade();
 
   const clearError = () => setRequestError(undefined);
 
-  const makeRequest = (symbol: string) =>
-    fetch(getSecurityURL(symbol))
+  const makeRequest = (symbol: string) => {
+    if (isRequestGoing.current) return;
+
+    isRequestGoing.current = true;
+
+    return fetch(getSecurityURL(symbol))
       .then(async (res) => {
         if (res.body) {
           const parsedResponse = await res.json();
@@ -29,13 +34,15 @@ const useRequestHandler = () => {
           if (responseSymbol && price) {
             setSecurity({ symbol: responseSymbol, price });
             clearError();
+            isRequestGoing.current = false;
             return;
           }
 
-          setError("Failed to parse data");
+          setErrorMessage("Failed to parse data");
         }
       })
-      .catch((err) => setError(err.message));
+      .catch((err) => setErrorMessage(err.message));
+  };
 
   return { makeRequest, clearError, requestError };
 };

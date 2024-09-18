@@ -31,7 +31,7 @@ const Security = () => {
       }
 
       setIsRequestLoading(true);
-      await makeRequest(symbol).then(() => setIsRequestLoading(false));
+      await makeRequest(symbol)?.then(() => setIsRequestLoading(false));
     }, 500);
   };
 

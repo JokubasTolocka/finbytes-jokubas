@@ -1,12 +1,11 @@
-import Box from "@mui/material/Box/Box";
-import red from "@mui/material/colors/red";
-import Typography from "@mui/material/Typography/Typography";
-import { createContext, useState, PropsWithChildren } from "react";
+import Alert from "@mui/material/Alert/Alert";
+import Snackbar from "@mui/material/Snackbar/Snackbar";
+import { createContext, useState, PropsWithChildren, Dispatch } from "react";
 
 const ERROR_TIMEOUT = 5000;
 
 export interface GlobalErrorState {
-  setError: (message: string) => void;
+  setErrorMessage: Dispatch<React.SetStateAction<string | null>>;
 }
 
 export const GlobalErrorContext = createContext<GlobalErrorState | null>(null);
@@ -14,26 +13,26 @@ export const GlobalErrorContext = createContext<GlobalErrorState | null>(null);
 export const GlobalErrorProvider = ({ children }: PropsWithChildren) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const setError = (message: string) => {
-    setErrorMessage(message);
-
-    setTimeout(() => setErrorMessage(null), ERROR_TIMEOUT);
-  };
+  const clearError = () => setErrorMessage(null);
 
   return (
-    <GlobalErrorContext.Provider value={{ setError }}>
+    <GlobalErrorContext.Provider value={{ setErrorMessage }}>
       {children}
       {errorMessage && (
-        <Box
-          sx={{
-            backgroundColor: red[500],
-            position: "absolute",
-            width: "100%",
-            bottom: 0,
-          }}
+        <Snackbar
+          open={!!errorMessage}
+          autoHideDuration={ERROR_TIMEOUT}
+          onClose={clearError}
         >
-          <Typography textAlign="center">{errorMessage}</Typography>
-        </Box>
+          <Alert
+            onClose={clearError}
+            severity="error"
+            variant="filled"
+            sx={{ width: "100%", mb: 1 }}
+          >
+            {errorMessage}
+          </Alert>
+        </Snackbar>
       )}
     </GlobalErrorContext.Provider>
   );
