@@ -25,19 +25,31 @@ const Confirmation = () => {
   const isDisabled = !security || !amount || !order;
 
   return (
-    <Box sx={{ mt: 6, width: "100%" }}>
+    <Box
+      sx={{ mt: 6, width: "100%", display: "flex", justifyContent: "flex-end" }}
+    >
       <Button
         variant="contained"
         disabled={isDisabled}
         onClick={confirmTrade}
-        fullWidth
+        sx={(theme) => ({
+          width: "auto",
+          [theme.breakpoints.up("sm")]: { width: "100%" },
+        })}
         size="large"
       >
         Buy {security?.symbol}
       </Button>
       <Modal open={isConfirmationOpen} onClose={handleClose}>
         <Fade in={isConfirmationOpen}>
-          <Container maxWidth="sm" sx={{ padding: 2, height: "100%" }}>
+          <Container
+            maxWidth="sm"
+            sx={{
+              padding: 0,
+              height: "100%",
+              display: "flex",
+            }}
+          >
             <ModalContent handleClose={handleClose} />
           </Container>
         </Fade>

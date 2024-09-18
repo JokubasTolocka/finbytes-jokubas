@@ -17,7 +17,7 @@ const TradeTypes = () => {
         (orderType) =>
           orderType && (
             <Button
-              variant={order === orderType ? "contained" : "text"}
+              variant={order === orderType ? "contained" : "inverse"}
               onClick={() => handleClick(orderType)}
               sx={{ px: 2 }}
               key={orderType}

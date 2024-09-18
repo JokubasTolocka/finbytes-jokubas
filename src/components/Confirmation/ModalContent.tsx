@@ -13,8 +13,21 @@ const ModalContent = ({ handleClose }: Props) => {
   const { security, amount, order } = useTrade();
 
   return (
-    <Box sx={{ backgroundColor: grey[900], borderRadius: 4, padding: 3 }}>
-      <Typography variant="h5" align="center">
+    <Box
+      sx={(theme) => ({
+        backgroundColor: grey[900],
+        borderRadius: 4,
+        padding: 3,
+        m: "auto",
+        [theme.breakpoints.down("sm")]: {
+          mb: 0,
+          borderBottomLeftRadius: 0,
+          borderBottomRightRadius: 0,
+          pb: 6,
+        },
+      })}
+    >
+      <Typography variant="h5" align="center" fontWeight={500}>
         Trade confirmation
       </Typography>
       <Divider sx={{ my: 2 }} />
@@ -23,16 +36,16 @@ const ModalContent = ({ handleClose }: Props) => {
         {security?.symbol}.
       </Typography>
       <Box sx={{ my: 4 }}>
-        <Typography variant="body1" align="center">
+        <Typography variant="body1" align="center" color={grey[500]}>
           Total price:
         </Typography>
         {security && (
-          <Typography variant="h2" align="center">
+          <Typography variant="h2" align="center" fontWeight={500}>
             ${amount * security?.price}
           </Typography>
         )}
       </Box>
-      <Button variant="contained" fullWidth onClick={handleClose}>
+      <Button variant="contained" size="large" fullWidth onClick={handleClose}>
         Close
       </Button>
     </Box>

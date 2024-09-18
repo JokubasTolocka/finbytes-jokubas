@@ -11,15 +11,22 @@ const App = () => {
   const { security, amount } = useTrade();
 
   return (
-    <Container maxWidth="xs">
-      <Typography variant="h4" fontFamily="Inter" fontWeight={500}>
-        Stock Order
-      </Typography>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        <Security />
-        <TradeOptions />
-        {security && !!amount && <TradeInformation />}
-        <Confirmation />
+    <Container maxWidth="xs" sx={{ height: "100vh", display: "flex" }}>
+      <Box
+        sx={(theme) => ({
+          my: 4,
+          [theme.breakpoints.up("sm")]: { my: "auto" },
+        })}
+      >
+        <Typography variant="h4" fontWeight={500} sx={{ mb: 4 }}>
+          Stock Order
+        </Typography>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          <Security />
+          <TradeOptions />
+          {security && !!amount && <TradeInformation />}
+          <Confirmation />
+        </Box>
       </Box>
     </Container>
   );
