@@ -20,7 +20,7 @@ const Security = () => {
   const handleInputChange = ({
     target: { value: symbol },
   }: React.ChangeEvent<HTMLInputElement>) => {
-    if (typingTimeout) clearTimeout(typingTimeout.current);
+    if (typingTimeout.current) clearTimeout(typingTimeout.current);
     setInputValue(symbol);
 
     typingTimeout.current = setTimeout(async () => {
