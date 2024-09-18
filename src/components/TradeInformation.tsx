@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box/Box";
 import { useTrade } from "../contexts/Trade/useTrade";
 import Typography from "@mui/material/Typography";
-import { Security } from "../contexts/Trade/TradeProvider";
+import { Security } from "../contexts/Trade/types";
 
 const TradeInformation = () => {
   const { security, amount } = useTrade();

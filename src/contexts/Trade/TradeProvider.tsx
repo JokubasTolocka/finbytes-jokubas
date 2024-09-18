@@ -5,7 +5,7 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
-import { Security, TRADE_TYPES } from "./types";
+import { Security, OrderEnum } from "./types";
 
 export interface TradeState {
   security?: Security;
@@ -13,8 +13,8 @@ export interface TradeState {
   clearSecurity: () => void;
   amount: number;
   setAmount: Dispatch<SetStateAction<number>>;
-  type: TRADE_TYPES;
-  setType: Dispatch<SetStateAction<TRADE_TYPES>>;
+  order: OrderEnum;
+  setOrder: Dispatch<SetStateAction<OrderEnum>>;
   clearTrade: () => void;
 }
 
@@ -23,14 +23,14 @@ export const TradeContext = createContext<TradeState | null>(null);
 const TradeProvider = ({ children }: PropsWithChildren) => {
   const [security, setSecurity] = useState<Security>();
   const [amount, setAmount] = useState(1);
-  const [type, setType] = useState<TRADE_TYPES>(TRADE_TYPES.UNDEFINED);
+  const [order, setOrder] = useState<OrderEnum>(OrderEnum.UNDEFINED);
 
   const clearSecurity = () => setSecurity(undefined);
 
   const clearTrade = () => {
     clearSecurity();
     setAmount(1);
-    setType(TRADE_TYPES.UNDEFINED);
+    setOrder(OrderEnum.UNDEFINED);
   };
 
   return (
@@ -41,8 +41,8 @@ const TradeProvider = ({ children }: PropsWithChildren) => {
         clearSecurity,
         amount,
         setAmount,
-        type,
-        setType,
+        order,
+        setOrder,
         clearTrade,
       }}
     >

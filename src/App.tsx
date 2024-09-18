@@ -12,7 +12,9 @@ const App = () => {
 
   return (
     <Container maxWidth="xs">
-      <Typography variant="h4">Stock Order</Typography>
+      <Typography variant="h4" fontFamily="Inter" fontWeight={500}>
+        Stock Order
+      </Typography>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
         <Security />
         <TradeOptions />

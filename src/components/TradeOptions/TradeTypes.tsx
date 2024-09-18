@@ -1,28 +1,28 @@
 import Button from "@mui/material/Button/Button";
 import Box from "@mui/material/Box/Box";
 import { useTrade } from "../../contexts/Trade/useTrade";
-import { TRADE_TYPES } from "../../contexts/Trade/types";
+import { OrderEnum } from "../../contexts/Trade/types";
 
 const TradeTypes = () => {
-  const { type, setType } = useTrade();
+  const { order, setOrder } = useTrade();
 
-  const handleClick = (option: TRADE_TYPES) => {
-    if (option === type) setType(TRADE_TYPES.UNDEFINED);
-    else setType(option);
+  const handleClick = (option: OrderEnum) => {
+    if (option === order) setOrder(OrderEnum.UNDEFINED);
+    else setOrder(option);
   };
 
   return (
     <Box sx={{ display: "flex", gap: 2, my: 1 }}>
-      {Object.values(TRADE_TYPES).map(
-        (enumType) =>
-          enumType && (
+      {Object.values(OrderEnum).map(
+        (orderType) =>
+          orderType && (
             <Button
-              variant={type === enumType ? "contained" : "text"}
-              onClick={() => handleClick(enumType)}
+              variant={order === orderType ? "contained" : "text"}
+              onClick={() => handleClick(orderType)}
               sx={{ px: 2 }}
-              key={enumType}
+              key={orderType}
             >
-              {enumType}
+              {orderType}
             </Button>
           )
       )}

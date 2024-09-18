@@ -10,7 +10,7 @@ interface Props {
 }
 
 const ModalContent = ({ handleClose }: Props) => {
-  const { security, amount, type } = useTrade();
+  const { security, amount, order } = useTrade();
 
   return (
     <Box sx={{ backgroundColor: grey[900], borderRadius: 4, padding: 3 }}>
@@ -19,7 +19,7 @@ const ModalContent = ({ handleClose }: Props) => {
       </Typography>
       <Divider sx={{ my: 2 }} />
       <Typography variant="subtitle1" align="center">
-        You have successfully made a {type} order of {amount} shares of{" "}
+        You have successfully made a {order} order of {amount} shares of{" "}
         {security?.symbol}.
       </Typography>
       <Box sx={{ my: 4 }}>

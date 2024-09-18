@@ -1,4 +1,4 @@
-export enum TRADE_TYPES {
+export enum OrderEnum {
   MARKET = "Market",
   LIMIT = "Limit",
   STOP = "Stop",
