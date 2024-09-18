@@ -1,29 +1,22 @@
 import Container from "@mui/material/Container/Container";
-import TextField from "@mui/material/TextField/TextField";
 import Typography from "@mui/material/Typography/Typography";
+import Security from "./components/Security/Security";
+import { useSecurity } from "./contexts/Security/useSecurity";
+import TradeInformation from "./components/TradeInformation";
+import Box from "@mui/material/Box/Box";
 
-const App = () => (
-  <Container maxWidth="xs">
-    <Typography variant="h4">Stock Order</Typography>
-    <TextField
-      id="security"
-      label="Security"
-      variant="outlined"
-      fullWidth
-      sx={{
-        ".MuiInputBase-input": {
-          textTransform: "uppercase",
-        },
-      }}
-      slotProps={{
-        input: {
-          inputProps: {
-            maxLength: 5,
-          },
-        },
-      }}
-    />
-  </Container>
-);
+const App = () => {
+  const { security } = useSecurity();
+
+  return (
+    <Container maxWidth="xs">
+      <Typography variant="h4">Stock Order</Typography>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        <Security />
+        {security && <TradeInformation />}
+      </Box>
+    </Container>
+  );
+};
 
 export default App;
