@@ -15,12 +15,15 @@ export interface TradeState {
   security?: Security;
   setSecurity: Dispatch<SetStateAction<Security | undefined>>;
   clearSecurity: () => void;
+  amount: number;
+  setAmount: Dispatch<SetStateAction<number>>;
 }
 
 export const TradeContext = createContext<TradeState | null>(null);
 
 const TradeProvider = ({ children }: PropsWithChildren) => {
   const [security, setSecurity] = useState<Security>();
+  const [amount, setAmount] = useState(1);
 
   const clearSecurity = () => setSecurity(undefined);
 
@@ -30,6 +33,8 @@ const TradeProvider = ({ children }: PropsWithChildren) => {
         security,
         setSecurity,
         clearSecurity,
+        amount,
+        setAmount,
       }}
     >
       {children}

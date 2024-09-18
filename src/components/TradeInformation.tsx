@@ -4,9 +4,7 @@ import Typography from "@mui/material/Typography";
 import { Security } from "../contexts/Trade/TradeProvider";
 
 const TradeInformation = () => {
-  const { security } = useTrade();
-
-  const amount = 20;
+  const { security, amount } = useTrade();
 
   const totalPrice = amount * (security as Security).price;
 
@@ -29,7 +27,7 @@ const TradeInformation = () => {
           Estimated trading amount:
         </Typography>
         <Typography variant="body2">
-          Buy 20x${security?.price} {security?.symbol} ≈ ${totalPrice}
+          Buy {amount}x${security?.price} {security?.symbol} ≈ ${totalPrice}
         </Typography>
       </Box>
     </Box>

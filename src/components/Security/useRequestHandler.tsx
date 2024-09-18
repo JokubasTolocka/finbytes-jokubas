@@ -5,7 +5,7 @@ import { useTrade } from "../../contexts/Trade/useTrade";
 const useRequestHandler = () => {
   const [formError, setFormError] = useState<string>();
 
-  const { setSecurity } = useTrade();
+  const { setSecurity, clearSecurity } = useTrade();
 
   const clearError = () => setFormError(undefined);
 
@@ -16,6 +16,7 @@ const useRequestHandler = () => {
 
         if (parsedResponse.Information) {
           setFormError(parsedResponse.Information);
+          clearSecurity();
           return;
         }
 

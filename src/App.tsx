@@ -4,16 +4,18 @@ import Security from "./components/Security/Security";
 import { useTrade } from "./contexts/Trade/useTrade";
 import TradeInformation from "./components/TradeInformation";
 import Box from "@mui/material/Box/Box";
+import TradeOptions from "./components/TradeOptions";
 
 const App = () => {
-  const { security } = useTrade();
+  const { security, amount } = useTrade();
 
   return (
     <Container maxWidth="xs">
       <Typography variant="h4">Stock Order</Typography>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
         <Security />
-        {security && <TradeInformation />}
+        <TradeOptions />
+        {security && !!amount && <TradeInformation />}
       </Box>
     </Container>
   );
