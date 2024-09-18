@@ -3,7 +3,7 @@ import Box from "@mui/material/Box/Box";
 import red from "@mui/material/colors/red";
 import { createContext, useState, PropsWithChildren } from "react";
 
-const ERROR_TIMEOUT = 500000;
+const ERROR_TIMEOUT = 5000;
 
 export interface GlobalErrorState {
   setError: (message: string) => void;
