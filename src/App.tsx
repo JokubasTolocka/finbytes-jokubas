@@ -2,7 +2,7 @@ import Container from "@mui/material/Container/Container";
 import Typography from "@mui/material/Typography/Typography";
 import Security from "./components/Security/Security";
 import { useTrade } from "./contexts/Trade/useTrade";
-import TradeInformation from "./components/TradeInformation";
+import TradeInformation from "./components/TradeInformation/TradeInformation";
 import Box from "@mui/material/Box/Box";
 import TradeOptions from "./components/TradeOptions/TradeOptions";
 import Confirmation from "./components/Confirmation/Confirmation";

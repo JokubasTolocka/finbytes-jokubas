@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { getSecurityURL } from "./utils";
-import { useTrade } from "../../contexts/Trade/useTrade";
+import { getSecurityURL } from "../components/Security/utils";
+import { useTrade } from "../contexts/Trade/useTrade";
 
 const useRequestHandler = () => {
-  const [formError, setFormError] = useState<string>();
+  const [requestError, setRequestError] = useState<string>();
 
   const { setSecurity, clearSecurity } = useTrade();
 
-  const clearError = () => setFormError(undefined);
+  const clearError = () => setRequestError(undefined);
 
   const makeRequest = (symbol: string) =>
     fetch(getSecurityURL(symbol)).then(async (res) => {
@@ -15,7 +15,7 @@ const useRequestHandler = () => {
         const parsedResponse = await res.json();
 
         if (parsedResponse.Information) {
-          setFormError(parsedResponse.Information);
+          setRequestError(parsedResponse.Information);
           clearSecurity();
           return;
         }
@@ -29,7 +29,7 @@ const useRequestHandler = () => {
       }
     });
 
-  return { makeRequest, clearError, formError };
+  return { makeRequest, clearError, requestError };
 };
 
 export default useRequestHandler;
