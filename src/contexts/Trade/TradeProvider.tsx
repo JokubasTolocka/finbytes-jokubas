@@ -16,7 +16,7 @@ export interface TradeState {
   order: OrderEnum;
   setOrder: Dispatch<SetStateAction<OrderEnum>>;
   clearTrade: () => void;
-  getTotalPrice: () => number | undefined;
+  getTotalPrice: () => string | undefined;
   isTradeCompleted: boolean;
   setIsTradeCompleted: Dispatch<SetStateAction<boolean>>;
 }
@@ -38,7 +38,7 @@ const TradeProvider = ({ children }: PropsWithChildren) => {
     setIsTradeCompleted(true);
   };
 
-  const getTotalPrice = () => security && amount * security.price;
+  const getTotalPrice = () => security && (amount * security.price).toFixed(2);
 
   return (
     <TradeContext.Provider

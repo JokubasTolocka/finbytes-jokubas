@@ -33,7 +33,10 @@ const useRequestHandler = () => {
           const price = parsedResponse["Global Quote"]["05. price"];
 
           if (responseSymbol && price) {
-            setSecurity({ symbol: responseSymbol, price });
+            setSecurity({
+              symbol: responseSymbol,
+              price: Number(price),
+            });
             clearError();
             setIsRequestLoading(false);
             return;

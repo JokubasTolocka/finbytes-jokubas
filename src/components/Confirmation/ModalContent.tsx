@@ -52,7 +52,7 @@ const ModalContent = ({ handleClose, finalTrade }: Props) => {
           fontWeight={500}
           style={{ wordBreak: "break-word" }}
         >
-          ${security.price}
+          ${(security.price * amount).toFixed(2)}
         </Typography>
       </Box>
       <Button variant="contained" size="large" fullWidth onClick={handleClose}>
