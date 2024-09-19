@@ -19,6 +19,7 @@ const ModalContent = ({ handleClose, finalPrice }: Props) => {
         backgroundColor: grey[900],
         borderRadius: 4,
         padding: 3,
+        width: "100%",
         m: "auto",
         [theme.breakpoints.down("sm")]: {
           mb: 0,

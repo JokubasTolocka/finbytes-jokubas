@@ -1,7 +1,6 @@
 import Container from "@mui/material/Container/Container";
 import Typography from "@mui/material/Typography/Typography";
 import Security from "./components/Security";
-import { useTrade } from "./contexts/Trade/useTrade";
 import TradeInformation from "./components/TradeInformation";
 import Box from "@mui/material/Box/Box";
 import TradeSettings from "./components/TradeSettings/TradeSettings";
@@ -9,8 +8,6 @@ import Confirmation from "./components/Confirmation/Confirmation";
 import usePriceUpdater from "./hooks/usePriceUpdater";
 
 const App = () => {
-  const { security, amount } = useTrade();
-
   usePriceUpdater();
 
   return (
@@ -27,7 +24,7 @@ const App = () => {
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
           <Security />
           <TradeSettings />
-          {security && !!amount && <TradeInformation />}
+          <TradeInformation />
           <Confirmation />
         </Box>
       </Box>
