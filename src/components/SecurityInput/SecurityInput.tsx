@@ -8,7 +8,7 @@ import InputAdornment from "@mui/material/InputAdornment/InputAdornment";
 
 const Security = () => {
   const [inputValue, setInputValue] = useState("");
-  const typingTimeout = useRef<number>();
+  const typingTimeout = useRef<ReturnType<typeof setTimeout>>();
   const { clearSecurity, isTradeCompleted, setIsTradeCompleted } = useTrade();
 
   const { makeRequest, clearError, requestError, isRequestLoading } =

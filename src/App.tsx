@@ -5,7 +5,7 @@ import TradeSettings from "./components/TradeSettings/TradeSettings";
 import Confirmation from "./components/Confirmation/Confirmation";
 import usePriceUpdater from "./hooks/usePriceUpdater";
 import TradeInformation from "./components/TradeInformation/TradeInformation";
-import Security from "./components/Security/Security";
+import Security from "./components/SecurityInput/SecurityInput";
 
 const App = () => {
   usePriceUpdater();

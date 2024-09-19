@@ -1,7 +1,7 @@
 import Modal from "@mui/material/Modal/Modal";
 import { useTrade } from "../../contexts/Trade/useTrade";
 import Button from "@mui/material/Button/Button";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import ModalContent from "./ModalContent";
 import Container from "@mui/material/Container/Container";
 import Fade from "@mui/material/Fade/Fade";
@@ -13,8 +13,8 @@ import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 
 const Confirmation = () => {
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const [isRequestLoading, setIsRequestLoading] = useState(false);
   const [finalTrade, setFinalTrade] = useState<Trade>();
-  const isRequestLoading = useRef(false);
 
   const { setErrorMessage } = useGlobalError();
   const { security, amount, order, clearTrade } = useTrade();
@@ -27,7 +27,7 @@ const Confirmation = () => {
   const confirmTrade = async () => {
     if (!security || !amount || !order) return;
 
-    isRequestLoading.current = true;
+    setIsRequestLoading(true);
 
     await mockApi({ security, amount, order })
       .then((data) => {
@@ -35,9 +35,7 @@ const Confirmation = () => {
         setIsConfirmationOpen(true);
       })
       .catch(setErrorMessage)
-      .finally(() => {
-        isRequestLoading.current = false;
-      });
+      .finally(() => setIsRequestLoading(false));
   };
 
   const isDisabled = !security || !amount || !order;
@@ -53,9 +51,9 @@ const Confirmation = () => {
         }}
       >
         <Button
-          startIcon={isRequestLoading.current && <CircularProgress size={20} />}
+          startIcon={isRequestLoading && <CircularProgress size={20} />}
           variant="contained"
-          disabled={isDisabled || isRequestLoading.current}
+          disabled={isDisabled || isRequestLoading}
           onClick={confirmTrade}
           sx={(theme) => ({
             width: "auto",
