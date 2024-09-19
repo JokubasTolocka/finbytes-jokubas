@@ -3,7 +3,7 @@ import useRequestHandler from "./useRequestHandler";
 import { useTrade } from "../contexts/Trade/useTrade";
 
 const usePriceUpdater = () => {
-  const timeout = useRef<number>();
+  const timeout = useRef<ReturnType<typeof setInterval>>();
 
   const { makeRequest } = useRequestHandler();
   const { security, isTradeCompleted } = useTrade();
