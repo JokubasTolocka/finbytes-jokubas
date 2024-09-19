@@ -1,27 +1,43 @@
 import Modal from "@mui/material/Modal/Modal";
 import { useTrade } from "../../contexts/Trade/useTrade";
 import Button from "@mui/material/Button/Button";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ModalContent from "./ModalContent";
 import Container from "@mui/material/Container/Container";
 import Fade from "@mui/material/Fade/Fade";
 import Box from "@mui/material/Box/Box";
+import mockApi from "../../utils/mockApi";
+import { Trade } from "../../contexts/Trade/types";
+import { useGlobalError } from "../../contexts/GlobalError/useGlobalError";
+import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 
 const Confirmation = () => {
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
-  const [finalPrice, setFinalPrice] = useState<number>();
-  const { security, amount, order, clearTrade, getTotalPrice } = useTrade();
+  const [finalTrade, setFinalTrade] = useState<Trade>();
+  const isRequestLoading = useRef(false);
+
+  const { setErrorMessage } = useGlobalError();
+  const { security, amount, order, clearTrade } = useTrade();
 
   const handleClose = () => {
     setIsConfirmationOpen(false);
     clearTrade();
   };
 
-  const confirmTrade = () => {
-    setFinalPrice(getTotalPrice());
-    // THIS IS WHERE THE REQUEST LOGIC WOULD SIT
-    // await requestTradeConfirmation(url, {security, amount, order}).then(
-    setIsConfirmationOpen(true);
+  const confirmTrade = async () => {
+    if (!security || !amount || !order) return;
+
+    isRequestLoading.current = true;
+
+    await mockApi({ security, amount, order })
+      .then((data) => {
+        setFinalTrade(data);
+        setIsConfirmationOpen(true);
+      })
+      .catch(setErrorMessage)
+      .finally(() => {
+        isRequestLoading.current = false;
+      });
   };
 
   const isDisabled = !security || !amount || !order;
@@ -37,8 +53,9 @@ const Confirmation = () => {
         }}
       >
         <Button
+          startIcon={isRequestLoading.current && <CircularProgress size={20} />}
           variant="contained"
-          disabled={isDisabled}
+          disabled={isDisabled || isRequestLoading.current}
           onClick={confirmTrade}
           sx={(theme) => ({
             width: "auto",
@@ -59,7 +76,7 @@ const Confirmation = () => {
               display: "flex",
             }}
           >
-            <ModalContent handleClose={handleClose} finalPrice={finalPrice} />
+            <ModalContent handleClose={handleClose} finalTrade={finalTrade} />
           </Container>
         </Fade>
       </Modal>

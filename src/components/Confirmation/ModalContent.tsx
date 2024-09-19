@@ -1,17 +1,22 @@
-import { useTrade } from "../../contexts/Trade/useTrade";
 import Box from "@mui/material/Box/Box";
 import Typography from "@mui/material/Typography/Typography";
 import grey from "@mui/material/colors/grey";
 import Divider from "@mui/material/Divider/Divider";
 import Button from "@mui/material/Button/Button";
+import { Trade } from "../../contexts/Trade/types";
 
 interface Props {
-  finalPrice?: number;
+  finalTrade?: Trade;
   handleClose: () => void;
 }
 
-const ModalContent = ({ handleClose, finalPrice }: Props) => {
-  const { security, amount, order } = useTrade();
+const ModalContent = ({ handleClose, finalTrade }: Props) => {
+  if (!finalTrade) {
+    handleClose();
+    return;
+  }
+
+  const { security, amount, order } = finalTrade;
 
   return (
     <Box
@@ -35,7 +40,7 @@ const ModalContent = ({ handleClose, finalPrice }: Props) => {
       <Divider sx={{ my: 2 }} />
       <Typography variant="subtitle1" align="center">
         You have successfully made a {order} order of {amount} shares of{" "}
-        {security?.symbol}.
+        {security.symbol}.
       </Typography>
       <Box sx={{ my: 4 }}>
         <Typography variant="body1" align="center" color={grey[500]}>
@@ -47,7 +52,7 @@ const ModalContent = ({ handleClose, finalPrice }: Props) => {
           fontWeight={500}
           style={{ wordBreak: "break-word" }}
         >
-          ${finalPrice}
+          ${security.price}
         </Typography>
       </Box>
       <Button variant="contained" size="large" fullWidth onClick={handleClose}>
