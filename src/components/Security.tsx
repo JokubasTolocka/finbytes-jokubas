@@ -1,7 +1,7 @@
 import TextField from "@mui/material/TextField/TextField";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
-import useRequestHandler from "../../hooks/useRequestHandler";
-import { useTrade } from "../../contexts/Trade/useTrade";
+import useRequestHandler from "../hooks/useRequestHandler";
+import { useTrade } from "../contexts/Trade/useTrade";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 import Box from "@mui/material/Box/Box";
 import InputAdornment from "@mui/material/InputAdornment/InputAdornment";

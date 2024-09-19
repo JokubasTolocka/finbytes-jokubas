@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getSecurityURL } from "../components/Security/utils";
+import { getSecurityURL } from "./utils";
 import { useTrade } from "../contexts/Trade/useTrade";
 import { useGlobalError } from "../contexts/GlobalError/useGlobalError";
 
