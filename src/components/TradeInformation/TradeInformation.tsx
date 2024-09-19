@@ -2,13 +2,9 @@ import Box from "@mui/material/Box/Box";
 import { useTrade } from "../../contexts/Trade/useTrade";
 import Typography from "@mui/material/Typography";
 import grey from "@mui/material/colors/grey";
-import usePriceUpdater from "./usePriceUpdater";
-import red from "@mui/material/colors/red";
 
 const TradeInformation = () => {
   const { security, amount, getTotalPrice } = useTrade();
-
-  const { requestError } = usePriceUpdater();
 
   return (
     <Box>
@@ -28,9 +24,6 @@ const TradeInformation = () => {
             ${security?.price}
           </Typography>
         </Box>
-        <Typography color={red[500]} variant="caption">
-          {requestError}
-        </Typography>
       </Box>
       <Box sx={{ padding: 2 }}>
         <Typography variant="body2" sx={{ mb: 1, color: grey[600] }}>

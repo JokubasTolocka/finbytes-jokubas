@@ -1,21 +1,21 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { getSecurityURL } from "../components/Security/utils";
 import { useTrade } from "../contexts/Trade/useTrade";
 import { useGlobalError } from "../contexts/GlobalError/useGlobalError";
 
 const useRequestHandler = () => {
   const [requestError, setRequestError] = useState<string>();
-  const { setErrorMessage } = useGlobalError();
-  const isRequestGoing = useRef(false);
+  const [isRequestLoading, setIsRequestLoading] = useState(false);
 
+  const { setErrorMessage } = useGlobalError();
   const { setSecurity, clearSecurity } = useTrade();
 
   const clearError = () => setRequestError(undefined);
 
   const makeRequest = (symbol: string) => {
-    if (isRequestGoing.current) return;
+    if (isRequestLoading) return Promise.resolve();
 
-    isRequestGoing.current = true;
+    setIsRequestLoading(true);
 
     return fetch(getSecurityURL(symbol))
       .then(async (res) => {
@@ -24,6 +24,7 @@ const useRequestHandler = () => {
 
           if (parsedResponse.Information) {
             setRequestError(parsedResponse.Information);
+            setIsRequestLoading(false);
             clearSecurity();
             return;
           }
@@ -34,17 +35,27 @@ const useRequestHandler = () => {
           if (responseSymbol && price) {
             setSecurity({ symbol: responseSymbol, price });
             clearError();
-            isRequestGoing.current = false;
+            setIsRequestLoading(false);
             return;
           }
 
           setErrorMessage("Failed to parse data");
         }
       })
-      .catch((err) => setErrorMessage(err.message));
+      .catch((err) => {
+        setIsRequestLoading(false);
+        setErrorMessage(err.message);
+
+        throw err;
+      });
   };
 
-  return { makeRequest, clearError, requestError };
+  return {
+    makeRequest,
+    clearError,
+    requestError,
+    isRequestLoading,
+  };
 };
 
 export default useRequestHandler;

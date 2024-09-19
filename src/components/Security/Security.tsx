@@ -1,37 +1,42 @@
 import TextField from "@mui/material/TextField/TextField";
-import React, { useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import useRequestHandler from "../../hooks/useRequestHandler";
 import { useTrade } from "../../contexts/Trade/useTrade";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 import Box from "@mui/material/Box/Box";
+import InputAdornment from "@mui/material/InputAdornment/InputAdornment";
 
 const Security = () => {
-  const [isRequestLoading, setIsRequestLoading] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const typingTimeout = useRef<number>();
   const { clearSecurity, security } = useTrade();
+  const shouldPreserveInput = useRef(false);
 
-  const { makeRequest, clearError, requestError } = useRequestHandler();
+  const { makeRequest, clearError, requestError, isRequestLoading } =
+    useRequestHandler();
 
   useEffect(() => {
-    if (!security) setInputValue("");
-  }, [security]);
+    if (!security && !shouldPreserveInput) setInputValue("");
+    else shouldPreserveInput.current = false;
+  }, [inputValue, security]);
 
-  const handleInputChange = ({
-    target: { value: symbol },
-  }: React.ChangeEvent<HTMLInputElement>) => {
+  const debouncedSymbolChange = ({
+    target: { value },
+  }: ChangeEvent<HTMLInputElement>) => {
     if (typingTimeout.current) clearTimeout(typingTimeout.current);
-    setInputValue(symbol);
+    setInputValue(value);
 
     typingTimeout.current = setTimeout(async () => {
-      if (!symbol) {
+      if (!value) {
         clearError();
         clearSecurity();
         return;
       }
 
-      setIsRequestLoading(true);
-      await makeRequest(symbol)?.then(() => setIsRequestLoading(false));
+      makeRequest(value).catch(() => {
+        clearSecurity();
+        shouldPreserveInput.current = true;
+      });
     }, 500);
   };
 
@@ -43,7 +48,7 @@ const Security = () => {
         variant="outlined"
         fullWidth
         value={inputValue}
-        onChange={handleInputChange}
+        onChange={debouncedSymbolChange}
         sx={{
           ".MuiInputBase-input": {
             textTransform: "uppercase",
@@ -51,24 +56,17 @@ const Security = () => {
         }}
         slotProps={{
           input: {
-            inputProps: {
-              maxLength: 5,
-            },
+            inputProps: { maxLength: 5 },
+            endAdornment: isRequestLoading && (
+              <InputAdornment position="end">
+                <CircularProgress color="inherit" size={24} />
+              </InputAdornment>
+            ),
           },
         }}
         error={!!requestError}
         helperText={requestError}
       />
-      {isRequestLoading && (
-        <CircularProgress
-          color="inherit"
-          size={24}
-          sx={{
-            position: "absolute",
-            right: 16,
-          }}
-        />
-      )}
     </Box>
   );
 };

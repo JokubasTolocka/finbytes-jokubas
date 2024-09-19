@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box/Box";
-import React from "react";
+import { ChangeEvent } from "react";
 import { useTrade } from "../../contexts/Trade/useTrade";
 import TradeTypes from "./TradeTypes";
 import TextField from "@mui/material/TextField/TextField";
@@ -9,11 +9,12 @@ const TradeOptions = () => {
 
   const handleInputChange = ({
     target: { value },
-  }: React.ChangeEvent<HTMLInputElement>) => {
+  }: ChangeEvent<HTMLInputElement>) => {
     const removedLeadingZeros = value.replace(/^0+/, "");
-    const reg = new RegExp(/^[0-9]*$/);
+    const positiveWholeNumbersReg = new RegExp(/^[0-9]*$/);
 
-    if (reg.test(removedLeadingZeros)) setAmount(Number(removedLeadingZeros));
+    if (positiveWholeNumbersReg.test(removedLeadingZeros))
+      setAmount(Number(removedLeadingZeros));
   };
 
   return (

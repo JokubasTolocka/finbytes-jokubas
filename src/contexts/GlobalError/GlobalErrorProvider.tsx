@@ -1,19 +1,25 @@
 import Alert from "@mui/material/Alert/Alert";
 import Snackbar from "@mui/material/Snackbar/Snackbar";
-import { createContext, useState, PropsWithChildren, Dispatch } from "react";
+import {
+  createContext,
+  useState,
+  PropsWithChildren,
+  Dispatch,
+  SetStateAction,
+} from "react";
 
 const ERROR_TIMEOUT = 5000;
 
 export interface GlobalErrorState {
-  setErrorMessage: Dispatch<React.SetStateAction<string | null>>;
+  setErrorMessage: Dispatch<SetStateAction<string | undefined>>;
 }
 
 export const GlobalErrorContext = createContext<GlobalErrorState | null>(null);
 
 export const GlobalErrorProvider = ({ children }: PropsWithChildren) => {
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string>();
 
-  const clearError = () => setErrorMessage(null);
+  const clearError = () => setErrorMessage(undefined);
 
   return (
     <GlobalErrorContext.Provider value={{ setErrorMessage }}>
@@ -24,12 +30,7 @@ export const GlobalErrorProvider = ({ children }: PropsWithChildren) => {
           autoHideDuration={ERROR_TIMEOUT}
           onClose={clearError}
         >
-          <Alert
-            onClose={clearError}
-            severity="error"
-            variant="filled"
-            sx={{ width: "100%", mb: 1 }}
-          >
+          <Alert onClose={clearError} severity="error" variant="filled">
             {errorMessage}
           </Alert>
         </Snackbar>

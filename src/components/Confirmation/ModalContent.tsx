@@ -41,7 +41,12 @@ const ModalContent = ({ handleClose, finalPrice }: Props) => {
           Total price:
         </Typography>
         {security && (
-          <Typography variant="h2" align="center" fontWeight={500}>
+          <Typography
+            variant="h2"
+            align="center"
+            fontWeight={500}
+            style={{ wordBreak: "break-word" }}
+          >
             ${finalPrice}
           </Typography>
         )}

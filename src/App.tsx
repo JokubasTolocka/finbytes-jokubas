@@ -6,9 +6,12 @@ import TradeInformation from "./components/TradeInformation/TradeInformation";
 import Box from "@mui/material/Box/Box";
 import TradeOptions from "./components/TradeOptions/TradeOptions";
 import Confirmation from "./components/Confirmation/Confirmation";
+import usePriceUpdater from "./hooks/usePriceUpdater";
 
 const App = () => {
   const { security, amount } = useTrade();
+
+  usePriceUpdater();
 
   return (
     <Container maxWidth="xs" sx={{ height: "100vh", display: "flex" }}>
