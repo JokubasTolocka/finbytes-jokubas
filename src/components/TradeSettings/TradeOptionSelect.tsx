@@ -3,7 +3,7 @@ import Box from "@mui/material/Box/Box";
 import { useTrade } from "../../contexts/Trade/useTrade";
 import { OrderEnum } from "../../contexts/Trade/types";
 
-const TradeTypes = () => {
+const TradeOptionSelect = () => {
   const { order, setOrder } = useTrade();
 
   const handleClick = (option: OrderEnum) => {
@@ -30,4 +30,4 @@ const TradeTypes = () => {
   );
 };
 
-export default TradeTypes;
+export default TradeOptionSelect;

@@ -1,10 +1,10 @@
 import Box from "@mui/material/Box/Box";
 import { ChangeEvent } from "react";
 import { useTrade } from "../../contexts/Trade/useTrade";
-import TradeTypes from "./TradeTypes";
+import TradeOptionSelect from "./TradeOptionSelect";
 import TextField from "@mui/material/TextField/TextField";
 
-const TradeOptions = () => {
+const TradeSettings = () => {
   const { amount, setAmount } = useTrade();
 
   const handleInputChange = ({
@@ -28,9 +28,9 @@ const TradeOptions = () => {
         onChange={handleInputChange}
         type="number"
       />
-      <TradeTypes />
+      <TradeOptionSelect />
     </Box>
   );
 };
 
-export default TradeOptions;
+export default TradeSettings;

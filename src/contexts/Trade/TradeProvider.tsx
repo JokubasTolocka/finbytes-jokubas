@@ -34,11 +34,7 @@ const TradeProvider = ({ children }: PropsWithChildren) => {
     setOrder(OrderEnum.UNDEFINED);
   };
 
-  const getTotalPrice = () => {
-    if (!security) return;
-
-    return amount * security.price;
-  };
+  const getTotalPrice = () => security && amount * security.price;
 
   return (
     <TradeContext.Provider

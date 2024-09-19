@@ -21,6 +21,14 @@ const colorTheme = createTheme({
   },
 });
 
+const inverseButton = {
+  props: { variant: "inverse", color: "primary" },
+  style: {
+    backgroundColor: colorTheme.palette.primary.dark,
+    color: colorTheme.palette.primary.light,
+  },
+};
+
 const theme = createTheme(colorTheme, {
   components: {
     MuiInputLabel: {
@@ -35,15 +43,7 @@ const theme = createTheme(colorTheme, {
     MuiButton: {
       styleOverrides: {
         root: {
-          variants: [
-            {
-              props: { variant: "inverse", color: "primary" },
-              style: {
-                backgroundColor: colorTheme.palette.primary.dark,
-                color: colorTheme.palette.primary.light,
-              },
-            },
-          ],
+          variants: [inverseButton],
           borderRadius: "50px",
           textTransform: "none",
         },
