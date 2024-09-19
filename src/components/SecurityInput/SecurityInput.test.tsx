@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { vi } from "vitest"; // Import vi for mocking
+import { vi } from "vitest";
 import SecurityInput from "./SecurityInput";
 import useRequestHandler from "../../hooks/useRequestHandler";
-import MockTradeProvider from "../../__mocks__/MockTradeProvider"; // Adjust the path if necessary
+import MockTradeProvider from "../../__mocks__/MockTradeProvider";
 
 vi.mock("../../hooks/useRequestHandler");
 
