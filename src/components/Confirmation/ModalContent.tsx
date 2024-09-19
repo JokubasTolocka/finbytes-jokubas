@@ -40,16 +40,14 @@ const ModalContent = ({ handleClose, finalPrice }: Props) => {
         <Typography variant="body1" align="center" color={grey[500]}>
           Total price:
         </Typography>
-        {security && (
-          <Typography
-            variant="h2"
-            align="center"
-            fontWeight={500}
-            style={{ wordBreak: "break-word" }}
-          >
-            ${finalPrice}
-          </Typography>
-        )}
+        <Typography
+          variant="h2"
+          align="center"
+          fontWeight={500}
+          style={{ wordBreak: "break-word" }}
+        >
+          ${finalPrice}
+        </Typography>
       </Box>
       <Button variant="contained" size="large" fullWidth onClick={handleClose}>
         Close
