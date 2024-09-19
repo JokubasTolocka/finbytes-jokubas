@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box/Box";
-import { useTrade } from "../contexts/Trade/useTrade";
+import { useTrade } from "../../contexts/Trade/useTrade";
 import Typography from "@mui/material/Typography";
 import grey from "@mui/material/colors/grey";
 import Zoom from "@mui/material/Zoom/Zoom";
