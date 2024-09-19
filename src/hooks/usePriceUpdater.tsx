@@ -1,20 +1,20 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import useRequestHandler from "./useRequestHandler";
 import { useTrade } from "../contexts/Trade/useTrade";
-import { useGlobalError } from "../contexts/GlobalError/useGlobalError";
 
 const usePriceUpdater = () => {
-  const { makeRequest, requestError } = useRequestHandler();
-  const { setErrorMessage } = useGlobalError();
-  const { security } = useTrade();
+  const timeout = useRef<number>();
+
+  const { makeRequest } = useRequestHandler();
+  const { security, isTradeCompleted } = useTrade();
 
   useEffect(() => {
-    if (!security) return;
+    if (!security || isTradeCompleted) return clearInterval(timeout.current);
 
-    const timeout = setInterval(() => makeRequest(security.symbol), 1000);
+    timeout.current = setInterval(() => makeRequest(security.symbol), 1000);
 
-    return () => clearInterval(timeout);
-  }, [makeRequest, requestError, security, setErrorMessage]);
+    return () => clearInterval(timeout.current);
+  }, [isTradeCompleted, makeRequest, security]);
 };
 
 export default usePriceUpdater;

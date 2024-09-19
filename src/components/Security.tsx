@@ -9,16 +9,14 @@ import InputAdornment from "@mui/material/InputAdornment/InputAdornment";
 const Security = () => {
   const [inputValue, setInputValue] = useState("");
   const typingTimeout = useRef<number>();
-  const { clearSecurity, security } = useTrade();
-  const shouldPreserveInput = useRef(false);
+  const { clearSecurity, isTradeCompleted, setIsTradeCompleted } = useTrade();
 
   const { makeRequest, clearError, requestError, isRequestLoading } =
     useRequestHandler();
 
   useEffect(() => {
-    if (!security && !shouldPreserveInput) setInputValue("");
-    else shouldPreserveInput.current = false;
-  }, [inputValue, security]);
+    if (isTradeCompleted) setInputValue("");
+  }, [isTradeCompleted]);
 
   const debouncedSymbolChange = ({
     target: { value },
@@ -33,10 +31,9 @@ const Security = () => {
         return;
       }
 
-      makeRequest(value).catch(() => {
-        clearSecurity();
-        shouldPreserveInput.current = true;
-      });
+      makeRequest(value)
+        .then(() => setIsTradeCompleted(false))
+        .catch(clearSecurity);
     }, 500);
   };
 

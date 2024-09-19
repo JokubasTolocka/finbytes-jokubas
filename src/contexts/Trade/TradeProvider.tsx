@@ -17,6 +17,8 @@ export interface TradeState {
   setOrder: Dispatch<SetStateAction<OrderEnum>>;
   clearTrade: () => void;
   getTotalPrice: () => number | undefined;
+  isTradeCompleted: boolean;
+  setIsTradeCompleted: Dispatch<SetStateAction<boolean>>;
 }
 
 export const TradeContext = createContext<TradeState | null>(null);
@@ -25,6 +27,7 @@ const TradeProvider = ({ children }: PropsWithChildren) => {
   const [security, setSecurity] = useState<Security>();
   const [amount, setAmount] = useState(1);
   const [order, setOrder] = useState<OrderEnum>(OrderEnum.UNDEFINED);
+  const [isTradeCompleted, setIsTradeCompleted] = useState(false);
 
   const clearSecurity = () => setSecurity(undefined);
 
@@ -32,6 +35,7 @@ const TradeProvider = ({ children }: PropsWithChildren) => {
     clearSecurity();
     setAmount(1);
     setOrder(OrderEnum.UNDEFINED);
+    setIsTradeCompleted(true);
   };
 
   const getTotalPrice = () => security && amount * security.price;
@@ -48,6 +52,8 @@ const TradeProvider = ({ children }: PropsWithChildren) => {
         setOrder,
         clearTrade,
         getTotalPrice,
+        isTradeCompleted,
+        setIsTradeCompleted,
       }}
     >
       {children}
