@@ -21,6 +21,7 @@ const TradeOptionSelect = () => {
               onClick={() => handleClick(orderType)}
               sx={{ px: 2 }}
               key={orderType}
+              id={orderType}
             >
               {orderType}
             </Button>

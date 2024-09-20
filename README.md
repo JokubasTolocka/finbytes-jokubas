@@ -16,10 +16,18 @@ To run the website
 yarn dev
 ```
 
-To run the tests
+## Tests
+
+To run unit tests
 
 ```
-yarn test
+yarn test:unit
+```
+
+To run e2e tests
+
+```
+yarn test:e2e
 ```
 
 ## .env file configuration

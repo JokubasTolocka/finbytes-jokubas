@@ -21,6 +21,7 @@ const TradeInformation = () => {
               borderRadius: 1,
               padding: 2,
             })}
+            id="tradeInformation"
           >
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
               <Typography variant="h5" fontWeight={500}>

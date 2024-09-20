@@ -1,0 +1,14 @@
+{
+  "testTrade": {
+    "securityName": "IBM",
+    "orderType": "Market",
+    "amount": "5"
+  },
+  "securityInput": "security",
+  "amountInput": "amount",
+  "orderTypeButton": "Market",
+  "tradeInformation": "tradeInformation",
+  "confirmTradeButton": "confirmTrade",
+  "closeModalButton": "closeModalButton",
+  "totalPrice": "totalPrice"
+}

@@ -55,7 +55,13 @@ const ModalContent = ({ handleClose, finalTrade }: Props) => {
           ${(security.price * amount).toFixed(2)}
         </Typography>
       </Box>
-      <Button variant="contained" size="large" fullWidth onClick={handleClose}>
+      <Button
+        id="closeModalButton"
+        variant="contained"
+        size="large"
+        fullWidth
+        onClick={handleClose}
+      >
         Close
       </Button>
     </Box>

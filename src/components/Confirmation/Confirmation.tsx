@@ -60,6 +60,7 @@ const Confirmation = () => {
             [theme.breakpoints.up("sm")]: { width: "100%" },
           })}
           size="large"
+          id="confirmTrade"
         >
           Buy {security?.symbol}
         </Button>
