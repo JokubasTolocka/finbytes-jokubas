@@ -24,17 +24,15 @@ export const GlobalErrorProvider = ({ children }: PropsWithChildren) => {
   return (
     <GlobalErrorContext.Provider value={{ setErrorMessage }}>
       {children}
-      {errorMessage && (
-        <Snackbar
-          open={!!errorMessage}
-          autoHideDuration={ERROR_TIMEOUT}
-          onClose={clearError}
-        >
-          <Alert onClose={clearError} severity="error" variant="filled">
-            {errorMessage}
-          </Alert>
-        </Snackbar>
-      )}
+      <Snackbar
+        open={!!errorMessage}
+        autoHideDuration={ERROR_TIMEOUT}
+        onClose={clearError}
+      >
+        <Alert onClose={clearError} severity="error" variant="filled">
+          {errorMessage}
+        </Alert>
+      </Snackbar>
     </GlobalErrorContext.Provider>
   );
 };

@@ -22,7 +22,8 @@ const Confirmation = () => {
   const handleClose = () => setIsConfirmationOpen(false);
 
   const confirmTrade = async () => {
-    if (!security || !amount || !order) return;
+    if (!security || !amount || !order)
+      return setErrorMessage("Insufficient data for trade completion.");
 
     setIsRequestLoading(true);
 
