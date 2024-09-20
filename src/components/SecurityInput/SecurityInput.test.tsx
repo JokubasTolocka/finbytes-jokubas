@@ -6,7 +6,7 @@ import MockTradeProvider from "../../__mocks__/MockTradeProvider";
 
 vi.mock("../../hooks/useRequestHandler");
 
-describe("Security", () => {
+describe("Security Input", () => {
   beforeEach(() => {
     vi.useFakeTimers();
   });
