@@ -19,10 +19,7 @@ const Confirmation = () => {
   const { setErrorMessage } = useGlobalError();
   const { security, amount, order, clearTrade } = useTrade();
 
-  const handleClose = () => {
-    setIsConfirmationOpen(false);
-    clearTrade();
-  };
+  const handleClose = () => setIsConfirmationOpen(false);
 
   const confirmTrade = async () => {
     if (!security || !amount || !order) return;
@@ -32,10 +29,13 @@ const Confirmation = () => {
     await mockApi({ security, amount, order })
       .then((data) => {
         setFinalTrade(data);
+        clearTrade();
         setIsConfirmationOpen(true);
       })
       .catch(setErrorMessage)
-      .finally(() => setIsRequestLoading(false));
+      .finally(() => {
+        setIsRequestLoading(false);
+      });
   };
 
   const isDisabled = !security || !amount || !order;
